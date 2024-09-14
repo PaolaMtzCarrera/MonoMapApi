@@ -1,12 +1,13 @@
 import express, { Request, Response } from "express";
 import { envs } from "./config/env";
 import { MongoDatabase } from "./data/init";
-import { MonoMapModel } from "./data/models/init.models";
+import { AppRoutes } from "./presentation/router";
 
 console.log(envs.PORT);
 
 const app = express();
 app.use(express.json());
+app.use(AppRoutes.routes);
 
 (async () => {
     try {
@@ -19,24 +20,6 @@ app.use(express.json());
         console.error("Database connection failed", error);
     }
 })();
-
-app.get('/', (req: Request, res: Response) => {
-    res.send("Hola");
-});
-
-app.post("/", async (req: Request, res: Response) => {
-    try {
-        const { lat, lng, genre, age } = req.body;
-        const newMono = await MonoMapModel.create({
-            lat,
-            lng,
-            genre,
-            age
-        });
-        return res.json(newMono);
-    } catch (error) {
-    }
-});
 
 app.listen(envs.PORT, () => {
     console.log(`Server running on PORT ${envs.PORT}`);

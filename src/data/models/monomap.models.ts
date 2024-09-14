@@ -9,11 +9,6 @@ const monomapSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    // isEmailSent: {
-    //     type: Boolean,
-    //     required: false,
-    //     default: false
-    // },
     genre: {
         type: String,
         required: true
