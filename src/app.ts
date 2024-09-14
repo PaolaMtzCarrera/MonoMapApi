@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { envs } from "./config/env";
 import { MongoDatabase } from "./data/init";
 import { AppRoutes } from "./presentation/router";
+import { emailJob } from "./domain/jobs/email.job";
 
 console.log(envs.PORT);
 
@@ -23,4 +24,5 @@ app.use(AppRoutes.routes);
 
 app.listen(envs.PORT, () => {
     console.log(`Server running on PORT ${envs.PORT}`);
+    emailJob();
 });
